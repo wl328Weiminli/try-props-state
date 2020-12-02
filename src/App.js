@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { Component } from "react";
+import "./App.css";
+import UserInput from "./UserInputComponent/UserInput";
+import UserOutput from "./UserOutput/UserOutput";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    content: "SuperMax",
+    size: 10,
+  };
+  inputHandle = (e) => {
+    this.setState({ content: e.target.value });
+  };
+
+  clickHandler = () => {
+    this.setState((preState) => {
+      return {
+        size: preState.size + 10,
+      };
+    });
+  };
+
+  render() {
+    const { content, size } = this.state;
+    return (
+      <div className="App">
+        <h1>props and state</h1>
+        <UserInput intial={this.state.content} changed={this.inputHandle} />
+        <UserOutput
+          intial={"Supermax"}
+          changing={content}
+          size={size}
+          changeSize={this.clickHandler}
+        />
+      </div>
+    );
+  }
 }
 
 export default App;
