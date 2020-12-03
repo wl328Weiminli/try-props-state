@@ -2,11 +2,15 @@ import { Component } from "react";
 import "./App.css";
 import UserInput from "./UserInputComponent/UserInput";
 import UserOutput from "./UserOutput/UserOutput";
-
+import ColorDisplay from "./ColorDisplay/ColorDisplay";
+import ColorAdjust from "./ColorAdjust/ColorAdjust";
 class App extends Component {
   state = {
     content: "SuperMax",
     size: 10,
+    red: 100,
+    green: 100,
+    blue: 100,
   };
   inputHandle = (e) => {
     this.setState({ content: e.target.value });
@@ -21,7 +25,8 @@ class App extends Component {
   };
 
   render() {
-    const { content, size } = this.state;
+    const { content, size, red, green, blue } = this.state;
+
     return (
       <div className="App">
         <h1>props and state</h1>
@@ -31,6 +36,25 @@ class App extends Component {
           changing={content}
           size={size}
           changeSize={this.clickHandler}
+        />
+        <ColorDisplay r={red} g={green} b={blue} />
+
+        <ColorAdjust
+          color={"red"}
+          changed={(e) => this.setState({ red: e.target.value })}
+          value={red}
+        />
+
+        <ColorAdjust
+          color={"green"}
+          changed={(e) => this.setState({ green: e.target.value })}
+          value={green}
+        />
+
+        <ColorAdjust
+          color={"blue"}
+          changed={(e) => this.setState({ blue: e.target.value })}
+          value={blue}
         />
       </div>
     );
